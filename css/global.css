@@ -20,3 +20,7 @@ button:hover {background: rgb(162, 162, 197);}
 #contactSearchForm {width:20%; padding-left: 1em; margin-right: 1em;}
 article {width:75%;}
 section:nth-child(even) {background: #f1f1f1;}
+
+@media screen and (max-width: 1024px) {
+	#contactSearchForm, article {width: 95%; margin: auto; float: none;}
+}
