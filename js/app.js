@@ -23,6 +23,7 @@ OS.loadData = function(){
 			contacts.forEach(function(contact, i, contactarray){
 				
 				outlets.forEach(function(outlet, j, outletarray){
+					
 					//if match found, extend the contact record and add it to fullContacts, to be searched on
 					if(contact.outletId === outlet.id) {
 						var newContact = $.extend({}, contact, {"outletName": outlet.name});
