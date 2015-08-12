@@ -114,7 +114,7 @@ $(document).ready(function(){
 	//initial data load
 	OS.loadData();	
 	
-	//bind the button click to the search function, pass parmeters
+	//bind the button click to the search function, pass parameters
 	$('#contactSearch').on('click', function(e){
 		e.preventDefault();
 		var searchBy = $('#searchBy option:selected').val(), 
