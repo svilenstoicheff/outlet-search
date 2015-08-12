@@ -1,7 +1,7 @@
-//create outlet search namespace
+//create outlet search (OS) namespace 
 var OS = OS || {};
 
-//mepty array to hold the processed contacts
+// array to hold the processed contacts
 OS.fullContacts = [];
 
 //load data files
@@ -18,8 +18,10 @@ OS.loadData = function(){
 			dataType: 'json'
 		})
 		.done(function(outlets){
+			
 			//match contacts to outlets
 			contacts.forEach(function(contact, i, contactarray){
+				
 				outlets.forEach(function(outlet, j, outletarray){
 					//if match found, extend the contact record and add it to fullContacts, to be searched on
 					if(contact.outletId === outlet.id) {
@@ -41,19 +43,82 @@ OS.loadData = function(){
 	});
 };
 
+// build out a contact list from a passed-in object and display on page
 OS.buildContacts = function(contacts){
+	//remove previous results
+	$('.contactList').remove();
 	contacts.forEach(function(contact, i, arr){
-			var html = '<section><p>' + contact.firstName +' '+ contact.lastName +', '+ contact.title + '</p><blockquote>'+ contact.profile +'</blockquote</section>';
+			var html = '<section class="contactList box"><p><strong>' +
+						contact.firstName +' '+ contact.lastName +'</strong>, '+ contact.title +
+						', <em>' + contact.outletName + '</em>' +
+						'</p><blockquote>'+ contact.profile +'</blockquote</section>';
 
-		$('main').append(html);
+		$('#searchResults').append(html);
 	});
 };
-$(document).ready(function(){
-	OS.loadData();	
-});
 
-/* example
-OS.fullContacts.forEach(function(el, i, arr){
-if(el.profile.indexOf('can') > 0){console.log(el)}
-}) */
+// search full contact list by field name and search term
+OS.searchContacts = function(field, value){
+
+	//check and prompt for a valid search term, to prevent the loading of the complete result set - potential performance issue
+	if (value.length < 2){
+		alert('Please provide a valid search term - two or more characters');
+	}
+	
+	var contactsFound = [];
+
+	OS.fullContacts.forEach(function(el, i, arr){
+		
+		var term = value.toLowerCase(), 
+			stringSearched = el[field].toLowerCase();
+
+		//busienss logic: based on type of input, compare exact values or keyword matches
+		switch(field){
+			case 'firstName':
+				if(term === stringSearched){
+					contactsFound.push(el);
+				}
+			break;
+			case 'lastName':
+				if(term === stringSearched){
+					contactsFound.push(el);
+				}
+			break;
+			case 'title':
+				if(term === stringSearched){
+					contactsFound.push(el);
+				}
+			break;
+			case 'outletName':
+				if(stringSearched.indexOf(term) > -1){
+					contactsFound.push(el);
+				}
+			break;
+			case 'profile':
+				if(stringSearched.indexOf(term) > -1){
+					contactsFound.push(el);
+				}
+			break;
+			default:
+			console.log('search field is missing');
+		}
+		
+	});
+
+	OS.buildContacts(contactsFound);
+};
+
+$(document).ready(function(){
+	
+	//initial data load
+	OS.loadData();	
+	
+	//bind the button click to the search function, pass parmeters
+	$('#contactSearch').on('click', function(e){
+		e.preventDefault();
+		var searchBy = $('#searchBy option:selected').val(), 
+			searchTerm =  $('#searchTerm').val().trim();
+			OS.searchContacts(searchBy, searchTerm);
+	});
+});
 

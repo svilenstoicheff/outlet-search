@@ -1,0 +1,22 @@
+body, html {height: 100%;}
+body {font-size:16px; font-family: Arial, sans-serif; }
+.main { margin: 0 auto; }
+h1 {font-size: 2em; margin:0.5em 0;}
+h2 {font-size: 1.5em; margin:0.5em 0;}
+h3 {font-size: 1.2em; margin:0.5em 0;}
+h4 {font-size: 1em; margin:0.5em 0;}
+h5 {font-size: 0.8em; margin:0.5em 0;}
+h1, h2 {text-shadow:1px 1px 1px;}
+a {text-decoration:none;}
+a:hover {text-decoration:underline;}
+em {font-style:italic;}
+strong {font-weight:bold;}
+select, input, button {font-size: 110%; margin: 0.5em 0; padding:0.2em;}
+select {font-size: 1rem;}
+input + button {display: block; cursor: pointer; padding: 0.3em; border-radius: 0.3em; background: rgb(227, 227, 239);}
+button:hover {background: rgb(162, 162, 197);}
+.box { box-shadow: 1px 1px 1px 1px; padding: 0.2em; margin-bottom: 0.2em; border-radius: 0.5em}
+#contactSearchForm, article {float: left;}
+#contactSearchForm {width:20%; padding-left: 1em; margin-right: 1em;}
+article {width:75%;}
+section:nth-child(even) {background: #f1f1f1;}
